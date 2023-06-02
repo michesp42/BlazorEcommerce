@@ -1,4 +1,5 @@
 global using BlazorEcommerce.Shared;
+global using Microsoft.AspNetCore.Components;
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
