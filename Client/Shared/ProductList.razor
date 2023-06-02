@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="row">
+        @foreach (var product in _products)
+        {
+        <div class="col m-2">
+            <div class="card" style="width: 18rem;">
+                <img src="@product.ImageUrl" class="card-img-top img-thumbnail img-fit" alt="@product.Title">
+
+                <div class="card-body">
+                    <h4 class="text-truncate">@product.Title</h4>
+                    <p class="card-text text-truncate">@product.Description</p>
+                </div>
+                
+                <div class="badge bg-primary m-2 p-2">
+                    <h5 class="oi oi-dollar">
+                        <span class="font-monospace">@product.Price</span>
+                    </h5>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>

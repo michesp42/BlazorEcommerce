@@ -1,0 +1,65 @@
+### .gitignore generated using ChatGPT ###
+
+# Compiled output
+/bin/
+/obj/
+
+# Local development files
+/.vs/
+/.idea/
+/*.suo
+/*.user
+/*.userprefs
+/*.sln.docstates
+
+# Build artifacts
+/_framework/
+/obj/
+/*.exe
+/*.pdb
+/*.dll
+/*.wasm
+/*.wasm.map
+
+# NuGet packages
+/.nuget/
+/packages/
+
+# Visual Studio files
+*.sw*
+*.userprefs
+*.sln.ide
+*.suo
+*.csproj.user
+*.vcxproj.*
+*.xproj.user
+.vscode/
+/.vs/
+/*.cache
+/*.tgz
+/.history
+
+# Rider files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+[Bb]in/
+
+# Misc
+Thumbs.db
+.vscode/
+*/_UpgradeReport_Files/
+*.dbmdl
+*.[Pp]ublish.xml
+*.cache
+*.log
+testresults/
+
