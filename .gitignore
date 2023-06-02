@@ -4,6 +4,13 @@
 /bin/
 /obj/
 
+Client/bin/
+Client/obj/
+Server/bin/
+Server/obj/
+Shared/bin/
+Shared/obj/
+
 # Local development files
 /.vs/
 /.idea/
