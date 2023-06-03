@@ -4,24 +4,24 @@
 
 <h3>Product Details</h3>
 
-@if(product is null)
+@if(_product is null)
 {
-    <span>Loading product ...</span>
+    <span>@_message</span>
 }
 else
 {
     <div class="container">
         <div class="card" style="width: 100%; height: 600px">
-            <img src="@product.ImageUrl" class="card-img-top img-thumbnail img-fit" alt="@product.Title">
+            <img src="@_product.ImageUrl" class="card-img-top img-thumbnail img-fit" alt="@_product.Title">
         
             <div class="card-body">
-                <h4>@product.Title</h4>
-                <p class="card-text">@product.Description</p>
+                <h4>@_product.Title</h4>
+                <p class="card-text">@_product.Description</p>
             </div>
             
             <div class="badge bg-primary m-2 p-2">
                 <h5 class="oi oi-dollar">
-                    <span class="font-monospace">@product.Price</span>
+                    <span class="font-monospace">@_product.Price</span>
                 </h5>
             </div>
         </div>

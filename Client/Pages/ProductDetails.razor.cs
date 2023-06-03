@@ -8,10 +8,22 @@ public partial class ProductDetails
     [Parameter]
     public int Id { get; set; }
 
-    private Product? product = null;
+    private Product? _product = null;
+    private string _message = string.Empty;
 
     protected override async Task OnParametersSetAsync()
     {
-        product = ProductService.Products.Find(p => p.Id == Id);
+        _message = "Loading Product ...";
+
+        var result = await ProductService.GetProduct(Id);
+
+        if (!result.Success)
+        {
+            _message = result.Message;
+        }
+        else
+        {
+            _product = result.Data;
+        }
     }
 }
