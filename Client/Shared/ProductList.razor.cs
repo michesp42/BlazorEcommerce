@@ -11,11 +11,11 @@ public partial class ProductList
 
     protected override async Task OnInitializedAsync()
     {
-        var products = await Http.GetFromJsonAsync<List<Product>>("api/product");
-        
-        if (products is not null)
+        var response = await Http.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/product");
+
+        if (response is not null && response.Data is not null)
         {
-            _products = products;
+            _products = response.Data;
         }
     }
 }
