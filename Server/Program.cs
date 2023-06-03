@@ -1,7 +1,8 @@
 global using BlazorEcommerce.Shared;
+global using BlazorEcommerce.Server.Data;
 global using Microsoft.EntityFrameworkCore;
+global using Microsoft.AspNetCore.Mvc;
 
-using BlazorEcommerce.Server.Data;
 using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);
