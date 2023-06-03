@@ -14,14 +14,21 @@ public class ProductController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<ServiceResponse<List<Product>>>> GetProducts()
     {
-        var result = await _productService.GetProductsAsync();
-        return Ok(result);
+        var products = await _productService.GetProductsAsync();
+        return Ok(products);
     }
 
     [HttpGet("{productId}")]
     public async Task<ActionResult<ServiceResponse<Product>>> GetProduct(int productId)
     {
-        var result = await _productService.GetProductAsync(productId);
-        return Ok(result);
+        var product = await _productService.GetProductAsync(productId);
+        return Ok(product);
+    }
+    
+    [HttpGet("category/{categoryUrl}")]
+    public async Task<ActionResult<ServiceResponse<Product>>> GetProductsByCategory(string categoryUrl)
+    {
+        var productsOfACategory = await _productService.GetProductByCategory(categoryUrl);
+        return Ok(productsOfACategory);
     }
 }
