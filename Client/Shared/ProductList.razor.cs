@@ -1,6 +1,6 @@
 namespace BlazorEcommerce.Client.Shared;
 
-public partial class ProductList
+public partial class ProductList : IDisposable
 {
     [Inject]
     HttpClient Http { get; set; }
@@ -8,8 +8,13 @@ public partial class ProductList
     [Inject]
     IProductService ProductService { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        await ProductService.GetProducts();
+        ProductService.ProductsChanged += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        ProductService.ProductsChanged -= StateHasChanged;
     }
 }
