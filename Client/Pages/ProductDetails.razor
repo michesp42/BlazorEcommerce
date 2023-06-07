@@ -19,6 +19,18 @@ else
                 <p class="card-text">@_product.Description</p>
             </div>
             
+            @if (_product.Variants is not null && _product.Variants.Count > 1)
+            {
+                <div class="mb-3">
+                    <select class="form-select" @bind="_currentTypeId">
+                        @foreach (var variant in _product.Variants)
+                        {
+                            <option value="@variant.ProductTypeId">@variant.ProductType.Name</option>
+                        }
+                    </select>
+                </div>
+            }
+            
             @if (GetSelectedVariant() is not null)
             {
                 if (GetSelectedVariant().OriginalPrice > GetSelectedVariant().Price)
