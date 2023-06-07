@@ -7,3 +7,11 @@
 .img-fit:hover {
   transform: scale(1.1);
 }
+
+.original-price {
+  text-decoration: line-through;
+}
+
+.price {
+  color: lightgreen;
+}

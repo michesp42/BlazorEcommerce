@@ -10,6 +10,7 @@ public partial class ProductDetails
 
     private Product? _product = null;
     private string _message = string.Empty;
+    private int _currentTypeId = 1;
 
     protected override async Task OnParametersSetAsync()
     {
@@ -24,6 +25,23 @@ public partial class ProductDetails
         else
         {
             _product = result.Data;
+
+            if (_product is not null && _product.Variants.Count > 0)
+            {
+                _currentTypeId = _product.Variants[0].ProductTypeId;
+            }
         }
+    }
+
+    private ProductVariant GetSelectedVariant()
+    {
+        var variant = new ProductVariant();
+
+        if (_product is not null)
+        {
+            variant = _product.Variants.FirstOrDefault(v => v.ProductTypeId == _currentTypeId);
+        }
+
+        return variant;
     }
 }

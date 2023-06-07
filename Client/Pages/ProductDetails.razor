@@ -19,11 +19,16 @@ else
                 <p class="card-text">@_product.Description</p>
             </div>
             
-            <div class="badge bg-primary m-2 p-2">
-                <h5 class="oi oi-dollar">
-                    @* <span class="font-monospace">@_product.Price</span> *@
-                </h5>
-            </div>
+            @if (GetSelectedVariant() is not null)
+            {
+                if (GetSelectedVariant().OriginalPrice > GetSelectedVariant().Price)
+                {
+                    <h6 class="text-muted original-price">
+                        $@GetSelectedVariant().OriginalPrice
+                    </h6>
+                }
+                <h4 class="price">$@GetSelectedVariant().Price</h4>
+            }
         </div>
     </div>
 }
