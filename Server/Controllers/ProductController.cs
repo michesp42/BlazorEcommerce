@@ -24,9 +24,11 @@ public class ProductController : ControllerBase
         var product = await _productService.GetProductAsync(productId);
         return Ok(product);
     }
-    
+
     [HttpGet("category/{categoryUrl}")]
-    public async Task<ActionResult<ServiceResponse<Product>>> GetProductsByCategory(string categoryUrl)
+    public async Task<ActionResult<ServiceResponse<Product>>> GetProductsByCategory(
+        string categoryUrl
+    )
     {
         var productsOfACategory = await _productService.GetProductByCategory(categoryUrl);
         return Ok(productsOfACategory);
@@ -40,7 +42,9 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet("search-suggestions/{searchText}")]
-    public async Task<ActionResult<ServiceResponse<Product>>> GetProductSearchSuggestions(string searchText)
+    public async Task<ActionResult<ServiceResponse<Product>>> GetProductSearchSuggestions(
+        string searchText
+    )
     {
         var searchedSuggestions = await _productService.GetProductSearchSuggestions(searchText);
         return Ok(searchedSuggestions);

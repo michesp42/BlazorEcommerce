@@ -66,31 +66,37 @@ public class ProductService : IProductService
     public async Task<ServiceResponse<List<string>>> GetProductSearchSuggestions(string searchText)
     {
         var products = await FindProductsBySearchText(searchText);
-        
+
         var result = new List<string>();
-        
+
         foreach (var product in products)
         {
             if (product.Title.Contains(searchText, StringComparison.OrdinalIgnoreCase))
             {
                 result.Add(product.Title);
             }
-            
+
             if (product.Description is not null)
             {
-                var punctuation = product.Description.Where(char.IsPunctuation).Distinct().ToArray();
+                var punctuation = product.Description
+                    .Where(char.IsPunctuation)
+                    .Distinct()
+                    .ToArray();
                 var words = product.Description.Split().Select(s => s.Trim(punctuation));
-                
+
                 foreach (var word in words)
                 {
-                    if (word.Contains(searchText, StringComparison.OrdinalIgnoreCase) && !result.Contains(word))
+                    if (
+                        word.Contains(searchText, StringComparison.OrdinalIgnoreCase)
+                        && !result.Contains(word)
+                    )
                     {
                         result.Add(word);
                     }
                 }
             }
         }
-        
+
         return new ServiceResponse<List<string>> { Data = result };
     }
 
