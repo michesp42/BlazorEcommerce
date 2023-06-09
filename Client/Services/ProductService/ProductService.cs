@@ -10,7 +10,7 @@ public class ProductService : IProductService
     }
 
     public List<Product> Products { get; set; } = new List<Product>();
-    public string Message { get; set; }
+    public string Message { get; set; } = "Loading products...";
 
     public event Action ProductsChanged;
 
@@ -51,10 +51,10 @@ public class ProductService : IProductService
         ProductsChanged.Invoke();
     }
 
-    public async Task<List<string>> GetProductSuggestions(string searchText)
+    public async Task<List<string>> GetProductSearchSuggestions(string searchText)
     {
         var result = await _http.GetFromJsonAsync<ServiceResponse<List<string>>>(
-            $"api/products/search-suggestions/{searchText}"
+            $"api/product/search-suggestions/{searchText}"
         );
 
         return result?.Data ?? new List<string> { string.Empty };
@@ -63,7 +63,7 @@ public class ProductService : IProductService
     public async Task SearchProducts(string searchText)
     {
         var result = await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>(
-            $"api/products/search/{searchText}"
+            $"api/product/search/{searchText}"
         );
 
         if (result is not null && result.Data is not null)

@@ -9,5 +9,5 @@ public interface IProductService
     Task GetProducts(string? categoryUrl = null);
     Task<ServiceResponse<Product>> GetProduct(int productId);
     Task SearchProducts(string searchText);
-    Task<List<string>> GetProductSuggestions(string searchText);
+    Task<List<string>> GetProductSearchSuggestions(string searchText);
 }

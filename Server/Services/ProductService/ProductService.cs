@@ -53,18 +53,11 @@ public class ProductService : IProductService
         return response;
     }
 
-    public async Task<ServiceResponse<List<Product>>> SearchProduct(string searchText)
+    public async Task<ServiceResponse<List<Product>>> SearchProducts(string searchText)
     {
         var response = new ServiceResponse<List<Product>>
         {
-            Data = await _context.Products
-                .Where(
-                    p =>
-                        p.Title.ToLower().Contains(searchText.ToLower())
-                        || p.Description.ToLower().Contains(searchText.ToLower())
-                )
-                .Include(p => p.Variants)
-                .ToListAsync()
+            Data = await FindProductsBySearchText(searchText)
         };
 
         return response;
@@ -72,7 +65,7 @@ public class ProductService : IProductService
 
     public async Task<ServiceResponse<List<string>>> GetProductSearchSuggestions(string searchText)
     {
-        var products = await FindProductBySearchText(searchText);
+        var products = await FindProductsBySearchText(searchText);
         
         var result = new List<string>();
         
@@ -101,7 +94,7 @@ public class ProductService : IProductService
         return new ServiceResponse<List<string>> { Data = result };
     }
 
-    private async Task<List<Product>> FindProductBySearchText(string searchText)
+    private async Task<List<Product>> FindProductsBySearchText(string searchText)
     {
         return await _context.Products
             .Where(
