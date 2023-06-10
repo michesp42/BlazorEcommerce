@@ -4,6 +4,9 @@ public partial class ProductDetails
 {
     [Inject]
     IProductService ProductService { get; set; }
+    
+    [Inject]
+    ICartService CartService { get; set; }
 
     [Parameter]
     public int Id { get; set; }
@@ -43,5 +46,17 @@ public partial class ProductDetails
         }
 
         return variant;
+    }
+    
+    private async Task AddToCart()
+    {
+        var productVariant = GetSelectedVariant();
+        var cartItem = new CartItem
+        {
+            ProductId = productVariant.ProductId,
+            ProductTypeId = productVariant.ProductTypeId,
+        };
+        
+        await CartService.AddToCart(cartItem);
     }
 }
