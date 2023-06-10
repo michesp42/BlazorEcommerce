@@ -7,3 +7,8 @@
 .img-fit:hover {
   transform: scale(1.1);
 }
+
+.page-selection {
+  margin-right: 15px;
+  margin-bottom: 30px;
+}

@@ -22,7 +22,7 @@ public partial class Search
         }
         else
         {
-            NavigationManager.NavigateTo($"search/{searchText}");
+            NavigationManager.NavigateTo($"search/{searchText}/1");
         }
     }
 
