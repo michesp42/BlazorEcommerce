@@ -2,10 +2,20 @@ namespace BlazorEcommerce.Client.Pages;
 
 public partial class Register
 {
+    [Inject]
+    public IAuthenticationService AuthenticationService { get; set; }
+    
+    string errorMessage = string.Empty;
+
     UserRegister user = new UserRegister();
     
-    void HandleRegistration()
+    async Task HandleRegistration()
     {
-        Console.WriteLine($"Register user with email: {user.Email}.");
+        var result = await AuthenticationService.Register(user);
+        
+        if (!result.Success)
+        {
+            errorMessage = result.Message;
+        }
     }
 }
