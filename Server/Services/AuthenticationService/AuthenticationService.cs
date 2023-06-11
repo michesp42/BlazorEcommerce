@@ -31,11 +31,7 @@ public class AuthenticationService : IAuthenticationService
 
     public async Task<bool> UserExists(string email)
     {
-        if (
-            await _context.Users.AnyAsync(
-                u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase)
-            )
-        )
+        if (await _context.Users.AnyAsync(u => u.Email.ToLower().Equals(email.ToLower())))
         {
             return true;
         }
