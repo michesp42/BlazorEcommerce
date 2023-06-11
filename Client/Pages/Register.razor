@@ -10,18 +10,20 @@
         <label>Email
             <InputText class="form-control" @bind-Value="user.Email" />
         </label>
+        <ValidationMessage For="@(() => user.Email)" />
     </div>
     <div class="mb-3">
         <label>Confirm password
             <InputText class="form-control" @bind-Value="user.Password" type="password" />
         </label>
+        <ValidationMessage For="@(() => user.Password)" />
     </div>
     <div class="mb-3">
         <label>Confirm password
             <InputText class="form-control" @bind-Value="user.PasswordConfirmation" type="password" />
         </label>
+        <ValidationMessage For="@(() => user.PasswordConfirmation)" />
     </div>
     
     <button class="btn btn-primary" type="submit">Register</button>
-    <ValidationSummary />
 </EditForm>
