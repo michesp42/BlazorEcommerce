@@ -6,6 +6,7 @@ global using BlazorEcommerce.Shared.DataTransferObjects;
 global using BlazorEcommerce.Client.Services.ProductService;
 global using BlazorEcommerce.Client.Services.CategoryService;
 global using BlazorEcommerce.Client.Services.CartService;
+global using BlazorEcommerce.Client.Services.AuthenticationService;
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -24,5 +25,6 @@ builder.Services.AddScoped(
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
 await builder.Build().RunAsync();
