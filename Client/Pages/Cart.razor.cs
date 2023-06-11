@@ -31,4 +31,16 @@ public partial class Cart
             cartProducts = await CartService.GetCartProducts();
         }
     }
+
+    private async Task UpdateQuantity(ChangeEventArgs e, CartProductResponse product)
+    {
+        product.Quantity = int.Parse(e.Value.ToString());
+
+        if (product.Quantity < 1)
+        {
+            product.Quantity = 1;
+        }
+
+        await CartService.UpdateQuantity(product);
+    }
 }
