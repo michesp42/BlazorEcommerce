@@ -9,7 +9,7 @@ public class CartService : ICartService
         _context = context;
     }
 
-    public async Task<ServiceResponse<List<CartProductResponse>>> AddCartProducts(
+    public async Task<ServiceResponse<List<CartProductResponse>>> GetCartProducts(
         List<CartItem> cartItems
     )
     {

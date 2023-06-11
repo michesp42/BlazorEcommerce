@@ -12,9 +12,9 @@ public class CartController : ControllerBase
     }
     
     [HttpPost("products")]
-    public async Task<ActionResult<ServiceResponse<List<CartProductResponse>>>> AddCartProducts(List<CartItem> cartItems)
+    public async Task<ActionResult<ServiceResponse<List<CartProductResponse>>>> GetCartProducts(List<CartItem> cartItems)
     {
-        var result = await _cartService.AddCartProducts(cartItems);
+        var result = await _cartService.GetCartProducts(cartItems);
         return Ok(result);
     }
 }
