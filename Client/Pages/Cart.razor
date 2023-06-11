@@ -19,6 +19,9 @@ else
                 <div class="name">
                     <h5><a href="/products/@product.ProductId">@product.Title</a></h5>
                     <span>@product.ProductType</span>
+                    <button class="btn-delete" @onclick="@(() => RemoveProductFromCart(product.ProductId, product.ProductTypeId))">
+                        Delete
+                    </button>
                 </div>
                 
                 <div class="cart-product-price">@product.Price</div>

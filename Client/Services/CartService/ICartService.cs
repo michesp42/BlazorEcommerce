@@ -7,4 +7,5 @@ public interface ICartService
     Task AddToCart(CartItem cartItem);
     Task<List<CartItem>> GetByCartItems();
     Task<List<CartProductResponse>> GetCartProducts();
+    Task RemoveFromCart(int productId, int productTypeId);
 }

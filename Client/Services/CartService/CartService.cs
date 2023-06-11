@@ -19,7 +19,9 @@ public class CartService : ICartService
     {
         var cartItems = await _localStorageService.GetItemAsync<List<CartItem>>("cart");
         var response = await _http.PostAsJsonAsync("api/cart/products", cartItems);
-        var cartProducts = await response.Content.ReadFromJsonAsync<ServiceResponse<List<CartProductResponse>>>();
+        var cartProducts = await response.Content.ReadFromJsonAsync<
+            ServiceResponse<List<CartProductResponse>>
+        >();
         return cartProducts.Data;
     }
 
@@ -48,5 +50,26 @@ public class CartService : ICartService
         }
 
         return cart;
+    }
+
+    public async Task RemoveFromCart(int productId, int productTypeId)
+    {
+        var cart = await _localStorageService.GetItemAsync<List<CartItem>>("cart");
+
+        if (cart == null)
+        {
+            return;
+        }
+
+        var cartItem = cart.Find(
+            item => item.ProductId == productId && item.ProductTypeId == productTypeId
+        );
+
+        if (cartItem != null)
+        {
+            cart.Remove(cartItem);
+            await _localStorageService.SetItemAsync<List<CartItem>>("cart", cart);
+            OnChange.Invoke();
+        }
     }
 }
