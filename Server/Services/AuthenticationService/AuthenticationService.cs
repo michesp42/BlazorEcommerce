@@ -1,13 +1,18 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Security.Cryptography;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BlazorEcommerce.Server.Services.AuthenticationService;
 
 public class AuthenticationService : IAuthenticationService
 {
     private readonly DataContext _context;
+    private readonly IConfiguration _configuration;
 
-    public AuthenticationService(DataContext context)
+    public AuthenticationService(DataContext context, IConfiguration configuration)
     {
+        _configuration = configuration;
         _context = context;
     }
 
@@ -30,15 +35,37 @@ public class AuthenticationService : IAuthenticationService
         }
         else
         {
-            response.Data = "token";
+            response.Data = CreateToken(user);
         }
 
         return response;
     }
 
+    private string CreateToken(User user)
+    {
+        List<Claim> claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim(ClaimTypes.Name, user.Email),
+        };
+
+        var key = new SymmetricSecurityKey(
+            System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value)
+        );
+        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+        var token = new JwtSecurityToken(
+            claims: claims,
+            expires: DateTime.Now.AddDays(1),
+            signingCredentials: credentials
+        );
+        var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+        return jwt;
+    }
+
     private bool VerfiyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
     {
-        using (var hmac = new HMACSHA256(passwordSalt))
+        using (var hmac = new HMACSHA512(passwordSalt))
         {
             var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             return computedHash.SequenceEqual(passwordHash);
