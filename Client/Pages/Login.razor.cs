@@ -12,6 +12,9 @@ public partial class Login
     
     [Inject]
     public NavigationManager NavigationManager { get; set; }
+    
+    [Inject]
+    public AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
     private UserLogin user = new UserLogin();
     private string errorMessage = string.Empty;
@@ -23,7 +26,10 @@ public partial class Login
         if (result.Success)
         {
             errorMessage = string.Empty;
+
             await LocalStorageService.SetItemAsStringAsync("authenticationToken", result.Data);
+            await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
             NavigationManager.NavigateTo("/");
         }
         else
