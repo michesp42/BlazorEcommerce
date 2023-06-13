@@ -23,6 +23,6 @@ public partial class CartCounter : IDisposable
     private int GetCartItemsCount()
     {
         var cart = SyncLocalStorageService.GetItem<List<CartItem>>("cart");
-        return cart != null ? cart.Count : 0;
+        return cart is not null ? cart.Count : 0;
     }
 }

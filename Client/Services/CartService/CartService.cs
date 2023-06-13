@@ -77,7 +77,7 @@ public class CartService : ICartService
             item => item.ProductId == productId && item.ProductTypeId == productTypeId
         );
 
-        if (cartItem != null)
+        if (cartItem is not null)
         {
             cart.Remove(cartItem);
             await _localStorageService.SetItemAsync<List<CartItem>>("cart", cart);
@@ -99,7 +99,7 @@ public class CartService : ICartService
                 item.ProductId == product.ProductId && item.ProductTypeId == product.ProductTypeId
         );
 
-        if (cartItem != null)
+        if (cartItem is not null)
         {
             cartItem.Quantity = product.Quantity;
             await _localStorageService.SetItemAsync<List<CartItem>>("cart", cart);

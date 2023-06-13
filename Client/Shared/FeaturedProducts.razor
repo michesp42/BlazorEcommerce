@@ -25,7 +25,7 @@
                             </a>
                         </h4>
                         
-                        @if (product.Variants != null && product.Variants.Count > 0)
+                        @if (product.Variants is not null && product.Variants.Count > 0)
                         {
                             <h5 class="price">
                                 $@product.Variants[0].Price
