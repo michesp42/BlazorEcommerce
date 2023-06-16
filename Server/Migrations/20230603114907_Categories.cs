@@ -17,21 +17,25 @@ namespace BlazorEcommerce.Server.Migrations
                 table: "Products",
                 type: "int",
                 nullable: false,
-                defaultValue: 0);
+                defaultValue: 0
+            );
 
             migrationBuilder.CreateTable(
                 name: "Categories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
+                columns: table =>
+                    new
+                    {
+                        Id = table
+                            .Column<int>(type: "int", nullable: false)
+                            .Annotation("SqlServer:Identity", "1, 1"),
+                        Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                        Url = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
-                });
+                }
+            );
 
             migrationBuilder.InsertData(
                 table: "Categories",
@@ -41,68 +45,78 @@ namespace BlazorEcommerce.Server.Migrations
                     { 1, "Books", "books" },
                     { 2, "Movies", "movies" },
                     { 3, "Video Games", "video-games" }
-                });
+                }
+            );
 
             migrationBuilder.UpdateData(
                 table: "Products",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CategoryId",
-                value: 1);
+                value: 1
+            );
 
             migrationBuilder.UpdateData(
                 table: "Products",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CategoryId",
-                value: 1);
+                value: 1
+            );
 
             migrationBuilder.UpdateData(
                 table: "Products",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CategoryId",
-                value: 1);
+                value: 1
+            );
 
             migrationBuilder.UpdateData(
                 table: "Products",
                 keyColumn: "Id",
                 keyValue: 4,
                 column: "CategoryId",
-                value: 1);
+                value: 1
+            );
 
             migrationBuilder.UpdateData(
                 table: "Products",
                 keyColumn: "Id",
                 keyValue: 5,
                 column: "CategoryId",
-                value: 1);
+                value: 1
+            );
 
             migrationBuilder.UpdateData(
                 table: "Products",
                 keyColumn: "Id",
                 keyValue: 6,
                 column: "CategoryId",
-                value: 1);
+                value: 1
+            );
 
             migrationBuilder.UpdateData(
                 table: "Products",
                 keyColumn: "Id",
                 keyValue: 7,
                 column: "CategoryId",
-                value: 1);
+                value: 1
+            );
 
             migrationBuilder.UpdateData(
                 table: "Products",
                 keyColumn: "Id",
                 keyValue: 8,
                 column: "CategoryId",
-                value: 1);
+                value: 1
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
                 table: "Products",
-                column: "CategoryId");
+                column: "CategoryId"
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Products_Categories_CategoryId",
@@ -110,7 +124,8 @@ namespace BlazorEcommerce.Server.Migrations
                 column: "CategoryId",
                 principalTable: "Categories",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Cascade
+            );
         }
 
         /// <inheritdoc />
@@ -118,18 +133,14 @@ namespace BlazorEcommerce.Server.Migrations
         {
             migrationBuilder.DropForeignKey(
                 name: "FK_Products_Categories_CategoryId",
-                table: "Products");
+                table: "Products"
+            );
 
-            migrationBuilder.DropTable(
-                name: "Categories");
+            migrationBuilder.DropTable(name: "Categories");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Products_CategoryId",
-                table: "Products");
+            migrationBuilder.DropIndex(name: "IX_Products_CategoryId", table: "Products");
 
-            migrationBuilder.DropColumn(
-                name: "CategoryId",
-                table: "Products");
+            migrationBuilder.DropColumn(name: "CategoryId", table: "Products");
         }
     }
 }

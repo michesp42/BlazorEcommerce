@@ -35,7 +35,10 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet("search/{searchText}/{requestedPage}")]
-    public async Task<ActionResult<ServiceResponse<ProductSearchResult>>> SearchProduct(string searchText, int requestedPage = 1)
+    public async Task<ActionResult<ServiceResponse<ProductSearchResult>>> SearchProduct(
+        string searchText,
+        int requestedPage = 1
+    )
     {
         var searchedProducts = await _productService.SearchProducts(searchText, requestedPage);
         return Ok(searchedProducts);

@@ -20,7 +20,7 @@ public class AuthenticationService : IAuthenticationService
     {
         var response = new ServiceResponse<string>();
         var user = await _context.Users.FirstOrDefaultAsync(
-            u=> u.Email.ToLower().Equals(email.ToLower())
+            u => u.Email.ToLower().Equals(email.ToLower())
         );
 
         if (user == null)

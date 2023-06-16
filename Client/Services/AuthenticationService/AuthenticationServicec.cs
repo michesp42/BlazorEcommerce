@@ -6,7 +6,7 @@ public class AuthenticationService : IAuthenticationService
 
     public AuthenticationService(HttpClient http)
     {
-            _http = http;
+        _http = http;
     }
 
     public async Task<ServiceResponse<string>> Login(UserLogin request)

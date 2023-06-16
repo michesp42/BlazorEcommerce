@@ -6,10 +6,10 @@ public partial class UserButton
 {
     [Inject]
     public ILocalStorageService LocalStorageService { get; set; }
-    
+
     [Inject]
-    public AuthenticationStateProvider AuthenticationStateProvider { get; set; }    
-    
+    public AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+
     [Inject]
     public NavigationManager NavigationManager { get; set; }
 
@@ -26,7 +26,7 @@ public partial class UserButton
         await Task.Delay(200);
         showUserMenu = false;
     }
-    
+
     private async Task Logout()
     {
         await LocalStorageService.RemoveItemAsync("authenticationToken");

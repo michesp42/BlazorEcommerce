@@ -10,7 +10,7 @@ public partial class ShopNavMenu
     {
         collapseNavMenu = !collapseNavMenu;
     }
-    
+
     protected override async Task OnInitializedAsync()
     {
         await CategoryService.GetCategories();

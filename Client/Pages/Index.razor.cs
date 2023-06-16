@@ -10,9 +10,9 @@ public partial class Index
 
     [Parameter]
     public string? SearchText { get; set; } = null;
-    
+
     [Parameter]
-    public int RequestedPage { get; set; }  = 1;
+    public int RequestedPage { get; set; } = 1;
 
     protected override async Task OnParametersSetAsync()
     {

@@ -9,7 +9,7 @@ public partial class CartCounter : IDisposable
 
     [Inject]
     ISyncLocalStorageService SyncLocalStorageService { get; set; }
-    
+
     protected override void OnInitialized()
     {
         CartService.OnChange += StateHasChanged;
