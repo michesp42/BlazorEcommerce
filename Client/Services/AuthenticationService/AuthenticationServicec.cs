@@ -1,3 +1,5 @@
+using Shared.Models;
+
 namespace BlazorEcommerce.Client.Services.AuthenticationService;
 
 public class AuthenticationService : IAuthenticationService
@@ -7,6 +9,12 @@ public class AuthenticationService : IAuthenticationService
     public AuthenticationService(HttpClient http)
     {
         _http = http;
+    }
+
+    public async Task<ServiceResponse<bool>> ChangePassword(UserChangePassword request)
+    {
+        var result = await _http.PostAsJsonAsync("api/authentication/change-password", request.Password);
+        return await result.Content.ReadFromJsonAsync<ServiceResponse<bool>>();
     }
 
     public async Task<ServiceResponse<string>> Login(UserLogin request)
