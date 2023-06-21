@@ -1,3 +1,6 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+
 namespace BlazorEcommerce.Server.Controllers;
 
 [Route("api/[controller]")]
@@ -34,6 +37,22 @@ public class AuthenticationController : ControllerBase
             loginRequest.Email,
             loginRequest.Password
         );
+
+        if (!response.Success)
+        {
+            return BadRequest(response);
+        }
+
+        return Ok(response);
+    }
+
+    [HttpPost("change-password"), Authorize]
+    public async Task<ActionResult<ServiceResponse<bool>>> ChangePasword(
+        [FromBody] string newPassword
+    )
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var response = await _authenticationService.ChangePassword(int.Parse(userId), newPassword);
 
         if (!response.Success)
         {
