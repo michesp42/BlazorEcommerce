@@ -90,6 +90,29 @@ public class AuthenticationService : IAuthenticationService
         return new ServiceResponse<int> { Data = user.Id, Message = "Registration successful!" };
     }
 
+    public async Task<ServiceResponse<bool>> ChangePassword(int userId, string newPassword)
+    {
+        var user = await _context.Users.FindAsync(userId);
+
+        if (user is null)
+        {
+            return new ServiceResponse<bool> { Success = false, Message = "User not found" };
+        }
+
+        CreatePasswordHash(newPassword, out byte[] newPasswordHash, out byte[] newPasswordSalt);
+
+        user.PasswordHash = newPasswordHash;
+        user.PasswordSalt = newPasswordSalt;
+
+        await _context.SaveChangesAsync();
+
+        return new ServiceResponse<bool>
+        {
+            Success = true,
+            Message = "Password changed successfully."
+        };
+    }
+
     public async Task<bool> UserExists(string email)
     {
         if (await _context.Users.AnyAsync(u => u.Email.ToLower().Equals(email.ToLower())))
