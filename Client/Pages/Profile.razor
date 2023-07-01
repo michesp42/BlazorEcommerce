@@ -5,6 +5,28 @@
 
 <AuthorizeView>
     <h3>Profile</h3>
-    
-    <p>Hi! You're logged in with <i>@context.User.Identity.Name</i></p>
+
+    <p>Hi! You're logged in with <i>@context?.User?.Identity?.Name</i></p>
 </AuthorizeView>
+
+<h5>Change Password</h5>
+
+<EditForm Model="request" OnValidSubmit="ChangePassword">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <div class="mb-3">
+        <label>New password
+            <InputText class="form-control" @bind-Value="request.Password" type="password" />
+        </label>
+        <ValidationMessage For="@(() => request.Password)" />
+    </div>
+    <div class="mb-3">
+        <label>Confirm new password
+            <InputText class="form-control" @bind-Value="request.PasswordConfirmation" type="password" />
+        </label>
+        <ValidationMessage For="@(() => request.PasswordConfirmation)" />
+    </div>
+
+    <button class="btn btn-primary" type="submit">Change password</button>
+</EditForm>
+
+@message
