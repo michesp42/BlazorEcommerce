@@ -1,3 +1,6 @@
 {
-    "dotnet.defaultSolution": "BlazorEcommerce.sln"
+    "dotnet.defaultSolution": "BlazorEcommerce.sln",
+    "cSpell.words": [
+        "Audiobook"
+    ]
 }

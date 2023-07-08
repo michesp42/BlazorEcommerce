@@ -6,11 +6,17 @@ public class CartService : ICartService
 {
     private readonly ILocalStorageService _localStorageService;
     private readonly HttpClient _http;
+    private readonly AuthenticationStateProvider _authenticationStateProvider;
 
-    public CartService(ILocalStorageService localStorageService, HttpClient http)
+    public CartService(
+        ILocalStorageService localStorageService,
+        HttpClient http,
+        AuthenticationStateProvider authenticationStateProvider
+    )
     {
         _localStorageService = localStorageService;
         _http = http;
+        _authenticationStateProvider = authenticationStateProvider;
     }
 
     public event Action OnChange;
@@ -27,6 +33,20 @@ public class CartService : ICartService
 
     public async Task AddToCart(CartItem cartItem)
     {
+        if (
+            (await _authenticationStateProvider.GetAuthenticationStateAsync())
+                .User
+                .Identity
+                .IsAuthenticated
+        )
+        {
+            Console.WriteLine("User is authenticated");
+        }
+        else
+        {
+            Console.WriteLine("User is not authenticated");
+        }
+
         var cart = await _localStorageService.GetItemAsync<List<CartItem>>("cart");
 
         if (cart == null)
