@@ -1,3 +1,5 @@
+using System.Security.Claims;
+
 namespace BlazorEcommerce.Server.Controllers;
 
 [Route("api/[controller]")]
@@ -17,6 +19,16 @@ public class CartController : ControllerBase
     )
     {
         var result = await _cartService.GetCartProducts(cartItems);
+        return Ok(result);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<ServiceResponse<List<CartProductResponse>>>> StoreCartItems(
+        List<CartItem> cartItems
+    )
+    {
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        var result = await _cartService.StoreCartItems(cartItems, userId);
         return Ok(result);
     }
 }

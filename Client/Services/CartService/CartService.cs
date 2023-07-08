@@ -49,10 +49,7 @@ public class CartService : ICartService
 
         var cart = await _localStorageService.GetItemAsync<List<CartItem>>("cart");
 
-        if (cart == null)
-        {
-            cart = new List<CartItem>();
-        }
+        cart ??= new List<CartItem>();
 
         var sameItem = cart.Find(
             item =>
@@ -76,10 +73,7 @@ public class CartService : ICartService
     {
         var cart = await _localStorageService.GetItemAsync<List<CartItem>>("cart");
 
-        if (cart == null)
-        {
-            cart = new List<CartItem>();
-        }
+        cart ??= new List<CartItem>();
 
         return cart;
     }
@@ -88,7 +82,7 @@ public class CartService : ICartService
     {
         var cart = await _localStorageService.GetItemAsync<List<CartItem>>("cart");
 
-        if (cart == null)
+        if (cart is null)
         {
             return;
         }
@@ -109,7 +103,7 @@ public class CartService : ICartService
     {
         var cart = await _localStorageService.GetItemAsync<List<CartItem>>("cart");
 
-        if (cart == null)
+        if (cart is null)
         {
             return;
         }
@@ -123,6 +117,23 @@ public class CartService : ICartService
         {
             cartItem.Quantity = product.Quantity;
             await _localStorageService.SetItemAsync<List<CartItem>>("cart", cart);
+        }
+    }
+
+    public async Task StoreCartItems(bool emptyLocalCart = false)
+    {
+        var localCart = await _localStorageService.GetItemAsync<List<CartItem>>("cart");
+
+        if (localCart is null || !localCart.Any())
+        {
+            return;
+        }
+
+        await _http.PostAsJsonAsync("api/cart", localCart);
+
+        if (emptyLocalCart)
+        {
+            await _localStorageService.RemoveItemAsync("cart");
         }
     }
 }

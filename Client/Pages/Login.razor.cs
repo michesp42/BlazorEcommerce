@@ -17,6 +17,9 @@ public partial class Login
     [Inject]
     public AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
+    [Inject]
+    public ICartService CartService { get; set; }
+
     private UserLogin user = new UserLogin();
     private string errorMessage = string.Empty;
     private string returnUrl = string.Empty;
@@ -41,6 +44,7 @@ public partial class Login
 
             await LocalStorageService.SetItemAsStringAsync("authenticationToken", result.Data);
             await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            await CartService.StoreCartItems(true);
 
             NavigationManager.NavigateTo(returnUrl);
         }
